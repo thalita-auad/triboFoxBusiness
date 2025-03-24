@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct TriboFoxTestApp: App {
+    @StateObject private var loginViewModel = LoginViewModel() 
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
         }
     }
 }
