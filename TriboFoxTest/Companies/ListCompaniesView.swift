@@ -11,6 +11,7 @@ struct ListCompaniesView: View {
     @ObservedObject var viewModel: CompanyViewModel
     @State private var selectedCompany: Empresa? = nil
     @State private var isCompanySelected = false
+    @State private var searchText: String = ""  
     
     var body: some View {
         NavigationView {
