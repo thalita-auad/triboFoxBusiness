@@ -30,7 +30,7 @@ struct CompanyDetailView: View {
                 VStack {
                     Text("Status: \(details.status)")
                     Text("Grupo: \(details.grupoDescricao ?? "N/A")")
-                    // Adicione mais detalhes conforme necessário
+                    // add mais detalhes depois
                 }
                 .padding()
             }

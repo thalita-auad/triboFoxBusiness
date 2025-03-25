@@ -11,12 +11,10 @@ struct ListCompaniesView: View {
     @ObservedObject var viewModel: CompanyViewModel
     @State private var selectedCompany: Empresa? = nil
     @State private var isCompanySelected = false
-    @State private var searchText: String = ""  // Barra de pesquisa
     
     var body: some View {
         NavigationView {
             VStack {
-                // Barra de Pesquisa
                 SearchBar(text: $searchText)
                     .padding(.top)
                 
@@ -38,7 +36,7 @@ struct ListCompaniesView: View {
             }
             .navigationTitle("Empresas")
             .onAppear {
-                loadCompanies() // Carregar as empresas ao exibir a tela
+                loadCompanies()
             }
             .fullScreenCover(isPresented: $isCompanySelected) {
                 if let company = selectedCompany {
@@ -48,12 +46,10 @@ struct ListCompaniesView: View {
         }
     }
     
-    // Função para carregar as empresas do viewModel
     func loadCompanies() {
         viewModel.fetchCompanies { result in
             switch result {
             case .success(let empresas):
-                // Empresas carregadas no viewModel
                 break
             case .failure(let error):
                 print("Erro ao carregar empresas: \(error)")
@@ -62,7 +58,6 @@ struct ListCompaniesView: View {
     }
 }
 
-// View para exibir o card de cada empresa
 struct CompanyRowView: View {
     var company: Empresa
     
@@ -84,7 +79,6 @@ struct CompanyRowView: View {
     }
 }
 
-// Barra de Pesquisa
 struct SearchBar: View {
     @Binding var text: String
     

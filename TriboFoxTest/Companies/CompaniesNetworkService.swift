@@ -19,7 +19,7 @@ class CompaniesNetworkService {
     static let shared = CompaniesNetworkService()
     private init() {}
 
-    private let ambiente = "dev" // Altere para "prod" se necessário
+    private let ambiente = "dev"
     private var baseURL: String {
         return "https://autenticacao.\(ambiente).tribofox.com.br/v1"
     }
@@ -32,13 +32,12 @@ class CompaniesNetworkService {
         }
 
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"  // O endpoint é GET
+        request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json-patch+json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.setValue("false", forHTTPHeaderField: "tfx-tokendebug")
         
-        // Print da requisição GET
         print("🔵 [Request] GET \(url.absoluteString)")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -53,7 +52,6 @@ class CompaniesNetworkService {
                 return
             }
 
-            // Print do status da resposta
             print("🟢 [Resposta] Status Code: \(httpResponse.statusCode)")
 
             guard let data = data else {
@@ -61,11 +59,9 @@ class CompaniesNetworkService {
                 return
             }
 
-            // Print do corpo da resposta (JSON)
             let responseString = String(data: data, encoding: .utf8) ?? "Resposta inválida"
             print("📩 [Resposta JSON] \(responseString)")
 
-            // Se o status não for 200, tenta decodificar a resposta de erro
             if httpResponse.statusCode != 200 {
                 do {
                     let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
@@ -101,10 +97,8 @@ class CompaniesNetworkService {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.setValue("false", forHTTPHeaderField: "tfx-tokendebug")
         
-        // Print da requisição POST
         print("🔵 [Request] POST \(url.absoluteString)")
         
-        // Corpo vazio
         request.httpBody = try? JSONSerialization.data(withJSONObject: [:], options: [])
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -119,7 +113,6 @@ class CompaniesNetworkService {
                 return
             }
 
-            // Print do status da resposta
             print("🟢 [Resposta] Status Code: \(httpResponse.statusCode)")
 
             guard let data = data else {
@@ -127,7 +120,6 @@ class CompaniesNetworkService {
                 return
             }
 
-            // Print do corpo da resposta (JSON)
             let responseString = String(data: data, encoding: .utf8) ?? "Resposta inválida"
             print("📩 [Resposta JSON] \(responseString)")
 

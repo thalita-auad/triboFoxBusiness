@@ -11,14 +11,12 @@ class CompanyViewModel: ObservableObject {
     @Published var companies: [Empresa] = []
     @Published var selectedCompany: EmpresaDetail? = nil
     @Published var errorMessage: String? = nil
-    @Published var authToken: String? // Token será passado ao inicializar o ViewModel
+    @Published var authToken: String?
 
-    // Função de inicialização
     init(authToken: String) {
         self.authToken = authToken
     }
 
-    // Função para carregar a lista de empresas
     func fetchCompanies(completion: @escaping (Result<[Empresa], Error>) -> Void) {
         guard let token = authToken else {
             completion(.failure(NSError(domain: "Token não encontrado", code: 401, userInfo: nil)))
@@ -29,7 +27,7 @@ class CompanyViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let empresas):
-                    self.companies = empresas // Atualiza a lista de empresas
+                    self.companies = empresas 
                     completion(.success(empresas))
                 case .failure(let error):
                     self.errorMessage = "Erro ao carregar empresas: \(error.localizedDescription)"
@@ -39,7 +37,6 @@ class CompanyViewModel: ObservableObject {
         }
     }
 
-    // Função para autenticar uma empresa
     func authenticateCompany(companyId: Int, completion: @escaping (Result<EmpresaDetail, Error>) -> Void) {
         guard let token = authToken else {
             completion(.failure(NSError(domain: "Token não encontrado", code: 401, userInfo: nil)))
