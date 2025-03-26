@@ -11,44 +11,99 @@ struct PasswordView: View {
     @ObservedObject var viewModel: LoginViewModel
     @State private var inputPassword: String = ""
     @State private var isLoggingIn: Bool = false
+    @State private var isInvalidPassword: Bool = false
+    @FocusState private var isPasswordFocused: Bool
 
     var body: some View {
-        VStack {
-            Text(viewModel.userName ?? "Usuário")
-                .font(.title)
-                .bold()
-                .padding()
+        ZStack {
+            Color.black
+                .edgesIgnoringSafeArea(.all)
 
-            SecureField("Senha", text: $inputPassword)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
+            VStack(spacing: 20) {
+                Text("FoxBusiness")
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundColor(.orange)
+                    .padding()
+                
+                Text(viewModel.userName)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
 
-            Button(action: {
-                isLoggingIn = true
-                viewModel.validatePassword(password: inputPassword) {
-                    isLoggingIn = false
+                SecureField("Senha", text: $inputPassword)
+                    .padding()
+                    .colorScheme(.dark)
+                    .foregroundColor(.white)
+                    .background(Color.gray.opacity(0.3))
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(isInvalidPassword ? Color.red : (isPasswordFocused ? Color.orange : (Color.gray.opacity(0.3))), lineWidth: 2)
+                    )
+                    .focused($isPasswordFocused)
+                    .onTapGesture {
+                        isInvalidPassword = false
+                    }
+
+                if let errorMessage = viewModel.errorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
                 }
-            }) {
-                if isLoggingIn {
-                    ProgressView()
-                } else {
-                    Text("Entrar")
-                        .frame(width: 200, height: 50)
-                        .background(inputPassword.count >= 6 ? Color.orange : Color.gray)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+
+                HStack(spacing: 20) {
+                    Button(action: {
+                        viewModel.showPasswordView = false
+                        viewModel.showCPFView = true
+                    }) {
+                        HStack {
+                            Text("Voltar")
+                                .foregroundColor(.orange)
+                                .fontWeight(.bold)
+                        }
+                        .padding()
+                        .frame(width: 150, height: 50)
+                        .background(Color.black)
+                        .cornerRadius(25)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.orange, lineWidth: 2)
+                        )
+                    }
+
+                    Button(action: {
+                        isLoggingIn = true
+                        viewModel.validatePassword(password: inputPassword) { isSuccess, errorMessage in
+                            if !isSuccess {
+                                isInvalidPassword = true
+                            }
+                            isLoggingIn = false
+                        }
+                    }) {
+                        if isLoggingIn {
+                            ProgressView()
+                        } else {
+                            Text("Logar")
+                                .frame(width: 150, height: 50)
+                                .background(isValidSize() ? Color.orange : Color.gray)
+                                .foregroundColor(.white)
+                                .cornerRadius(25)
+                        }
+                    }
+                    .disabled(!isValidSize())
                 }
+                .padding(.top, 20)
             }
-            .disabled(inputPassword.count < 6)
-            .padding(.top, 20)
-
-            Text(viewModel.errorMessage ?? "")
-                .foregroundColor(.red)
-                .padding(.top, 10)
+            .padding()
         }
-        .padding()
+    }
+
+    func isValidSize() -> Bool {
+        return inputPassword.count >= 6
     }
 }
+
+// MARK: Preview
 
 struct PasswordViewPreviews: PreviewProvider {
     static var viewModel = LoginViewModel()

@@ -70,28 +70,33 @@ class LoginViewModel: ObservableObject {
         }
     }
 
-    func validatePassword(password: String, completion: @escaping () -> Void) {
+    func validatePassword(password: String, completion: @escaping (Bool, String?) -> Void) {
         guard let token = authToken else {
-            errorMessage = "Token de usuário não encontrado"
-            completion()
+            completion(false, "Token de usuário não encontrado")
             return
         }
-        
+
         let body: [String: Any] = ["senha": "plaintext:\(password)"]
-        
+
         NetworkService.shared.postRequest(endpoint: "/login/auth", body: body, token: token) { (result: Result<TokenResponse, Error>) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
                     self.authToken = response.token.tokenId
-                    self.errorMessage = nil // Login bem-sucedido
+                    self.errorMessage = nil  // Senha correta
                     self.showCompaniesView = true
                     self.showPasswordView = false
-                case .failure:
-                    self.errorMessage = "Senha incorreta"
+                    completion(true, nil)
+                case .failure(let error):
+                    if error.localizedDescription.contains("Senha inválida") {
+                        self.errorMessage = "Senha inválida"
+                    } else {
+                        self.errorMessage = "Senha inválida"
+                    }
+                    completion(false, self.errorMessage)
                 }
-                completion()
             }
         }
     }
+
 }
