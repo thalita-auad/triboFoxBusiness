@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		C8E007D32D7F615300E66F63 /* TriboFoxTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TriboFoxTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8E007D32D7F615300E66F63 /* TriboFox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TriboFox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,7 +40,7 @@
 		C8E007D42D7F615300E66F63 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C8E007D32D7F615300E66F63 /* TriboFoxTest.app */,
+				C8E007D32D7F615300E66F63 /* TriboFox.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C8E007D22D7F615300E66F63 /* TriboFoxTest */ = {
+		C8E007D22D7F615300E66F63 /* TriboFox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C8E007E12D7F615400E66F63 /* Build configuration list for PBXNativeTarget "TriboFoxTest" */;
+			buildConfigurationList = C8E007E12D7F615400E66F63 /* Build configuration list for PBXNativeTarget "TriboFox" */;
 			buildPhases = (
 				C8E007CF2D7F615300E66F63 /* Sources */,
 				C8E007D02D7F615300E66F63 /* Frameworks */,
@@ -63,11 +63,11 @@
 			fileSystemSynchronizedGroups = (
 				C8E007D52D7F615300E66F63 /* TriboFoxTest */,
 			);
-			name = TriboFoxTest;
+			name = TriboFox;
 			packageProductDependencies = (
 			);
 			productName = TriboFoxTest;
-			productReference = C8E007D32D7F615300E66F63 /* TriboFoxTest.app */;
+			productReference = C8E007D32D7F615300E66F63 /* TriboFox.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C8E007CE2D7F615300E66F63 /* Build configuration list for PBXProject "TriboFoxTest" */;
+			buildConfigurationList = C8E007CE2D7F615300E66F63 /* Build configuration list for PBXProject "TriboFox" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C8E007D22D7F615300E66F63 /* TriboFoxTest */,
+				C8E007D22D7F615300E66F63 /* TriboFox */,
 			);
 		};
 /* End PBXProject section */
@@ -265,7 +265,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = triboFox.TriboFoxTest;
+				PRODUCT_BUNDLE_IDENTIFIER = triboFox.TriboFox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -294,7 +294,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = triboFox.TriboFoxTest;
+				PRODUCT_BUNDLE_IDENTIFIER = triboFox.TriboFox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -305,7 +305,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C8E007CE2D7F615300E66F63 /* Build configuration list for PBXProject "TriboFoxTest" */ = {
+		C8E007CE2D7F615300E66F63 /* Build configuration list for PBXProject "TriboFox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C8E007DF2D7F615400E66F63 /* Debug */,
@@ -314,7 +314,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C8E007E12D7F615400E66F63 /* Build configuration list for PBXNativeTarget "TriboFoxTest" */ = {
+		C8E007E12D7F615400E66F63 /* Build configuration list for PBXNativeTarget "TriboFox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C8E007E22D7F615400E66F63 /* Debug */,
