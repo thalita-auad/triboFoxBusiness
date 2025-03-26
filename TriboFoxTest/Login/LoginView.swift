@@ -12,42 +12,21 @@ struct LoginView: View {
     @StateObject private var companyViewModel = CompanyViewModel(authToken: "")
 
     var body: some View {
-        VStack {
-            Text("FoxBusiness")
-                .font(.largeTitle)
-                .foregroundColor(.orange)
-                .bold()
-                .padding(.bottom, 20)
-
-            if let errorMessage = viewModel.errorMessage {
-                Text(errorMessage)
-                    .foregroundColor(.red)
-                    .bold()
-                    .padding(.bottom, 10)
+        Color.black
+            .edgesIgnoringSafeArea(.all)
+            .fullScreenCover(isPresented: $viewModel.showCPFView) {
+                CPFView(viewModel: viewModel)
             }
-
-            Button(action: {
-                // Chama o dispositivo e valida o CPF
+            .fullScreenCover(isPresented: $viewModel.showPasswordView) {
+                PasswordView(viewModel: viewModel)
+            }
+            .fullScreenCover(isPresented: $viewModel.showCompaniesView) {
+                ListCompaniesView(viewModel: CompanyViewModel(authToken: viewModel.authToken ?? ""))
+            }
+            .onAppear {
                 viewModel.loginDispositivo()
                 viewModel.showCPFView = true
-            }) {
-                Text("Fazer Login")
-                    .frame(width: 200, height: 50)
-                    .background(Color.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
             }
-            .padding(.top, 20)
-        }
-        .fullScreenCover(isPresented: $viewModel.showCPFView) {
-            CPFView(viewModel: viewModel)
-        }
-        .fullScreenCover(isPresented: $viewModel.showPasswordView) {
-            PasswordView(viewModel: viewModel)
-        }
-        .fullScreenCover(isPresented: $viewModel.showCompaniesView) {
-            ListCompaniesView(viewModel: CompanyViewModel(authToken: viewModel.authToken ?? ""))
-        }
     }
 }
 

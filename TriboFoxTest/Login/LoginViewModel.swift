@@ -25,13 +25,10 @@ class LoginViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
-                    // Aqui você já tem o response e o deviceToken foi setado internamente
-                    // Se quiser, pode verificar se o token veio vazio
                     if response.token.tokenId.isEmpty {
                         self.errorMessage = "Falha ao obter token do dispositivo"
                     } else {
                         self.errorMessage = nil
-                        // Agora que o dispositivo está autenticado, mostre a tela de CPF
                         self.showCPFView = true
                     }
                 case .failure(let error):

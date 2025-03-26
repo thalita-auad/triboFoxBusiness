@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TokenResponse: Codable { // Modelo principal que reflete a resposta da API
+struct TokenResponse: Codable {
     let dispositivo: Dispositivo?
     let usuario: Usuario?
     let empresa: Empresa?
