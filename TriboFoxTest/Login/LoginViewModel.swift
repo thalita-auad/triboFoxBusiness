@@ -16,6 +16,7 @@ class LoginViewModel: ObservableObject {
     @Published var showCPFView: Bool = false
     @Published var showPasswordView: Bool = false
     @Published var showCompaniesView: Bool = false
+    @Published var isInvalidCPF: Bool = false
     
     private var isLoading = false
     
@@ -40,8 +41,7 @@ class LoginViewModel: ObservableObject {
         }
     }
 
-    func validateCPF() {
-        // Corpo da requisição para validação do CPF
+    func validateCPF(completion: @escaping (Bool, String?) -> Void) {
         let body: [String: Any] = [
             "textoProcurado": cpf,
             "midia": 6,
@@ -55,16 +55,19 @@ class LoginViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
-                    // Verificar se o token existe antes de acessar
-                    if !response.token.tokenId.isEmpty {
-                        self.authToken = response.token.tokenId
-                        self.showPasswordView = true
-                        self.showCPFView = false
-                    } else {
-                        self.errorMessage = "Usuário não encontrado ou token não disponível."
-                    }
+                    self.authToken = response.token.tokenId
+                    self.userName = response.usuario?.nome ?? ""
+                    self.showPasswordView = true
+                    self.showCPFView = false
+                    self.errorMessage = nil
+                    completion(true, nil)
+                    
                 case .failure(let error):
-                    self.errorMessage = "Erro ao validar CPF: \(error.localizedDescription)"
+                    self.showPasswordView = false
+                    self.showCPFView = true
+                    completion(false, "CPF inválido")
+                    self.isInvalidCPF = true  // Marca como erro
+                    print("Erro ao validar CPF: \(error.localizedDescription)")
                 }
             }
         }
